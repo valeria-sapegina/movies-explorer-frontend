@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  min-height: 100vh;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', 'Helvetica', 'Arial', sans-serif;
+  overflow: hidden;
+}
+
+.page__section {
+  width: 100%;
+  max-width: 1280px;
+  position: relative;
+  margin: 0 auto;
+  padding: 0 70px;
+  box-sizing: border-box;
+}
+
+.link {
+  transition: opacity 0.5s;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
+
+.button {
+  transition: opacity 0.5s;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 850px) {
+  .page__section {
+    padding: 0 50px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .page__section {
+    padding: 0 18px;
+  }
+}
