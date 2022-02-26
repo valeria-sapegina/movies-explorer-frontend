@@ -1,0 +1,83 @@
+.error-modal {
+    width: 400px;
+    box-sizing: border-box;
+    height: max-content;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    padding: 20px;
+    transform: scale(0); 
+    transition: 0.5s;
+    display: flex;
+    flex-direction: row;
+}
+
+.active {
+    transform: scale(1);
+}
+
+.error-modal__image {
+    width: 50px;
+    height: 50px;
+    background-image: url('../../images/error.svg');
+    background-size: contain;
+    flex-shrink: 0;
+    margin-right: 20px;
+    align-self: center;
+}
+
+.error-modal__message-title {
+    padding: 0;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: 500px;
+}
+
+.error-modal__message {
+    padding: 0;
+    margin: 0;
+    font-weight: 400px;
+    font-size: 14px;
+}
+
+.error-modal__message-container {
+    flex-grow: 1;
+}
+
+.error-modal__close {
+    border: none;
+    cursor: pointer;
+    background-image: url('../../images/close-button-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+}
+
+@media screen and (max-width: 500px) {
+    .error-modal {
+        width: calc(100% - 20px);
+        padding: 10px;
+    }
+
+    .error-modal__message-title {
+        margin: 0 0 5px 0;
+        font-size: 14px;
+        font-weight: 500px;
+    }
+    
+    .error-modal__message {
+        font-weight: 400px;
+        font-size: 12px;
+    }
+
+    .error-modal__image {
+        width: 40px;
+        height: 40px;
+    }
+}

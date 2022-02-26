@@ -1,0 +1,155 @@
+.about-project {
+    padding-top: 110px;
+    padding-bottom: 110px;
+}
+
+.section-title {
+    border-bottom: 1px solid #000;
+    height: 50px;
+}
+
+.section-title__text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: -0.04em;
+    padding: 0;
+    margin: 0;
+}
+
+.about-project__info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 50px;
+    margin: 70px 0 110px;
+}
+
+.about-project__subtitle {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    margin: 0 0 24px 0;
+    padding: 0;
+}
+
+.about-project__paragraph {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.progress {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.progress__backend {
+    width: 20%;
+}
+
+.progress__frontend {
+    width: 80%;
+}
+
+.progress__bar {
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress__bar_frontend {
+    background-color:  #F2F2F2;
+}
+
+.progress__bar_backend {
+    background-color: #2BE080;
+}
+
+.progress__text-inside {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+}
+
+.progress__text-outside {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin-top: 14px;
+    color: #A0A0A0;
+}
+
+@media screen and (max-width: 850px) {
+    .about-project {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+    .about-project__info {
+        margin: 70px 0 90px;
+        gap: 35px;
+    }
+
+    .about-project__paragraph {
+        font-size: 12px;
+    }
+
+    .about-project__subtitle {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .section-title__text {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .about-project__info {
+        flex-direction: column;
+        width: 100%;
+        margin: 60px 0;
+        gap: 55px;
+    }
+
+    .about-project__subtitle {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .progress__backend {
+        width: 45%; 
+    }
+
+    .about-project__paragraph {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .progress__text-inside {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .progress__text-outside {
+        font-size: 11px;
+        line-height: 13px;
+        margin-top: 10px;
+    }
+
+    .about-project {
+        padding-top: 70px;
+        padding-bottom: 70px;
+    }
+}
