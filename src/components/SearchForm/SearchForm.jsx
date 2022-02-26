@@ -11,7 +11,7 @@ function SearchForm() {
   return (
     <section className="search-form page__section">
       <div className="search-form__container">
-        <div className="search-form__input-container">
+        <form className="search-form__input-container">
           <input
             type="text"
             name="movie"
@@ -20,9 +20,10 @@ function SearchForm() {
             placeholder="Фильм"
             value={request}
             onChange={handleChange}
+            required
           />
           <button className="search-form__button button" type="submit">Поиск</button>
-        </div>
+        </form>
         <FilterCheckbox />
       </div>
 
