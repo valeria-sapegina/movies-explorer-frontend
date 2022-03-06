@@ -1,5 +1,4 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -18,10 +17,6 @@ function Movies({
   saveMovie,
   unsaveMovie,
 }) {
-  React.useEffect(() => {
-    console.log('isSendingRequest', isSendingRequest);
-    console.log('movies', movies);
-  }, [isSendingRequest, movies]);
   return (
     <>
       <Header isLooggedIn />

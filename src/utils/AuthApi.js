@@ -37,6 +37,6 @@ class Auth {
     .then(checkResponse);
 }
 
-const auth = new Auth('http://api.diploma.movies.nomoredomains.work/api');
+const auth = new Auth('https://api.diploma.movies.nomoredomains.work/api');
 
 export default auth;

@@ -72,6 +72,6 @@ class MainApi {
   }).then(checkResponse);
 }
 
-const mainApi = new MainApi('http://api.diploma.movies.nomoredomains.work/api');
+const mainApi = new MainApi('https://api.diploma.movies.nomoredomains.work/api');
 
 export default mainApi;
