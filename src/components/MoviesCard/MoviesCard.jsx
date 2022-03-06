@@ -1,14 +1,24 @@
-import React from 'react';
-
-function MoviesCard({ card, savedMoviesPage }) {
-  const [isSave, setIsSave] = React.useState(card.isSave);
+function MoviesCard({
+  card, isSavedMoviesPage, saveMovie, unsaveMovie, deleteMovie,
+}) {
+  const { isSave } = card;
 
   const cardSaveButtonClassName = `movies-card__save-button button ${
     isSave && 'movies-card__save-button_active'
   }`;
 
+  const src = card.image.url ? `https://api.nomoreparties.co${card.image.url}` : card.image;
+
   function handleSaveClick() {
-    setIsSave(!isSave);
+    if (!card.isSave) {
+      saveMovie(card);
+    } else {
+      unsaveMovie(card);
+    }
+  }
+
+  function handleDeleteClick() {
+    deleteMovie(card);
   }
 
   function getDurationStr() {
@@ -19,29 +29,32 @@ function MoviesCard({ card, savedMoviesPage }) {
 
   return (
     <li className="movies-card">
-      <img
-        className="movies-card__image"
-        src={card.image}
-        alt={card.nameRU}
-      />
+      <a className="movies-card__link" href={card.trailerLink} target="_blank" rel="noreferrer">
+        <img
+          className="movies-card__image"
+          src={src}
+          alt={card.nameRU}
+        />
+      </a>
       <div className="movies-card__description">
         <div className="movies-card__title-container">
-          <h2 className="movies-card__title">{card.nameRU}</h2>
-          {!savedMoviesPage
-                        && (
-                        <button
-                          type="button"
-                          className={cardSaveButtonClassName}
-                          onClick={handleSaveClick}
-                        />
-                        )}
-          {savedMoviesPage
-                        && (
-                        <button
-                          type="button"
-                          className="movies-card__delete-button button"
-                        />
-                        )}
+          <p className="movies-card__title" title={card.nameRU}>{card.nameRU}</p>
+          {!isSavedMoviesPage
+            && (
+              <button
+                type="button"
+                className={cardSaveButtonClassName}
+                onClick={handleSaveClick}
+              />
+            )}
+          {isSavedMoviesPage
+            && (
+              <button
+                type="button"
+                className="movies-card__delete-button button"
+                onClick={handleDeleteClick}
+              />
+            )}
         </div>
         <p className="movies-card__duration">
           {getDurationStr()}

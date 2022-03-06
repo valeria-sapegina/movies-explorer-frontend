@@ -1,19 +1,16 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from '../../images/logo.svg';
+import { useFormWithValidation } from '../../utils/validation';
 
-function Login() {
-  const [userEmail, setUserEmail] = React.useState('');
-  const [userPassword, setUserPassword] = React.useState('');
+function Login({ onLogin }) {
+  const {
+    // eslint-disable-next-line no-unused-vars
+    values, handleChange, resetFrom, errors, isValid,
+  } = useFormWithValidation();
 
-  function handleChange(e) {
-    const { name } = e.target;
-    const { value } = e.target;
-    if (name === 'email') {
-      setUserEmail(value);
-    } else if (name === 'password') {
-      setUserPassword(value);
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    onLogin(values);
   }
 
   return (
@@ -27,7 +24,7 @@ function Login() {
           />
         </Link>
         <h2 className="auth__title">Рады видеть!</h2>
-        <form className="auth-form">
+        <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <label className="auth-form__input">
             E-mail
             <input
@@ -36,11 +33,14 @@ function Login() {
               id="email"
               className="auth-form__textfield"
               placeholder="Введите e-mail"
-              value={userEmail}
+              value={values.email || ''}
               onChange={handleChange}
               minLength={2}
               required
             />
+            <span className="auth-form__error">
+              {errors.email || ''}
+            </span>
           </label>
           <label className="auth-form__input">
             Пароль
@@ -50,15 +50,26 @@ function Login() {
               id="password"
               className="auth-form__textfield"
               placeholder="Введите пароль"
-              value={userPassword}
+              value={values.password || ''}
               onChange={handleChange}
               minLength={6}
               maxLength={30}
               required
             />
+            <span className="auth-form__error">
+              {errors.password || ''}
+            </span>
           </label>
           <div className="auth-form__button-container">
-            <button className="auth-form__button button" type="submit">Войти</button>
+            <button
+              className={`auth-form__button button ${
+                !isValid && 'button_disabled'
+              }`}
+              type="submit"
+              disabled={!isValid}
+            >
+              Войти
+            </button>
           </div>
           <p className="auth-form__text">
             Ещё не зарегистрированы?

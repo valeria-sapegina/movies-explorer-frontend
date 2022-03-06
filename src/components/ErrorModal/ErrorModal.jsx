@@ -1,4 +1,14 @@
+import React from 'react';
+
 function ErrorModal({ active, setActive, errorMessage }) {
+  React.useEffect(() => {
+    if (active) {
+      setTimeout(() => {
+        setActive(false);
+      }, 5000);
+    }
+  }, [active]);
+
   function closeModal() {
     setActive(false);
   }

@@ -35,14 +35,30 @@
 
 .profile__form-input-container {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    padding: 16px 0;
-    border-bottom: 1px solid #E8E8E8;
-    gap: 50px;
 }
 
 .profile__form-input-container:last-of-type {
     border-bottom: none;
+}
+
+.profile__form-input-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 50px;
+    border-bottom: 1px solid #E8E8E8;
+    padding: 16px 0;
+}
+
+.profile__form-error {
+    color: #EE3465;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    height: 20px;
 }
 
 .profile__form {
@@ -124,19 +140,18 @@
     flex-grow: 1;
 }
 
-.profile__error {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 11px;
-    line-height: 13px;
-    text-align: center;
-    color: #FF004C;
-    width: 100%;
-    padding: 0;
-}
 
 .profile__button-wrapper {
     margin: 0 auto;
+}
+
+.message {
+    margin: 0 auto;
+}
+
+.message__text {
+    font-size: 14px;
+    color: #2BE080;
 }
 
 @media screen and (max-width: 850px) {

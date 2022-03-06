@@ -37,6 +37,18 @@
   opacity: 0.8;
 }
 
+.button_disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.preloader-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
 @media screen and (max-width: 850px) {
   .page__section {
     padding: 0 50px;

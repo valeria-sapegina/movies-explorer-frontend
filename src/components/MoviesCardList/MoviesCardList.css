@@ -1,6 +1,7 @@
 .movies-card-list {
     padding-top: 70px;
     padding-bottom: 80px;
+    flex-grow: 1;
 }
 
 .movies-card-list__card-container {

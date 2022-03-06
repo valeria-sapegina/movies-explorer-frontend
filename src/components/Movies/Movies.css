@@ -1,3 +1,6 @@
 .movies {
     min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
