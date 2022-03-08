@@ -4,10 +4,11 @@ import Header from '../Header/Header';
 import { useFormWithValidation } from '../../utils/validation';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Profile({ onSignOut, onUserUpdate, isUserUpdateSuccess }) {
+function Profile({
+  onSignOut, onUserUpdate, isUserUpdateSuccess, isActive, setIsActive,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const [isActive, setIsActive] = React.useState(false);
   const [idDisable, setIsDisable] = React.useState(false);
   const {
     values, handleChange, resetFrom, errors, isValid,
@@ -96,17 +97,11 @@ function Profile({ onSignOut, onUserUpdate, isUserUpdateSuccess }) {
                 {isUserUpdateSuccess
                 && <p className="message__text">Данные успешно обновлены!</p>}
               </div>
-
               <div className="profile__button-container">
                 {!isActive ? (
-                  <>
-                    <div className="profile__button-wrapper">
-                      <button type="button" className="profile__button-edit button" onClick={activateForm}>Редактировать</button>
-                    </div>
-                    <div className="profile__button-wrapper">
-                      <button type="button" className="profile__button-quit button" onClick={onSignOut}>Выйти из аккаунта</button>
-                    </div>
-                  </>
+                  <div className="profile__button-wrapper">
+                    <button type="button" className="profile__button-edit button" onClick={activateForm}>Редактировать</button>
+                  </div>
                 ) : (
                   <button
                     type="submit"
@@ -118,6 +113,9 @@ function Profile({ onSignOut, onUserUpdate, isUserUpdateSuccess }) {
 
                   </button>
                 )}
+                <div className="profile__button-wrapper">
+                  <button type="button" className="profile__button-quit button" onClick={onSignOut}>Выйти из аккаунта</button>
+                </div>
               </div>
             </form>
           </div>

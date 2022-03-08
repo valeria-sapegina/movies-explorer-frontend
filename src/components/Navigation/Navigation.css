@@ -67,7 +67,7 @@
     border: none;
     cursor: pointer;
     background-image: url('../../images//mobile-menu.svg');
-    background-color: #fff;
+    background-color: inherit;
     background-position: center;
 }
 

@@ -25,6 +25,18 @@ import Profile from '../Profile/Profile';
 import ErrorModal from '../ErrorModal/ErrorModal';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
+import {
+  DISPLAY_WIDTH,
+  DISPLAY_WIDTH_MIN,
+  TABLET_WIDTH_MIN,
+  DISPLAY_CARD_COUNT,
+  TABLET_CARD_COUNT,
+  MOBILE_CARD_COUNT,
+  DISPLAY_L_CARD_ADD,
+  DISPLAY_CARD_ADD,
+  TABLET_AND_MOBILE_CARD_ADD,
+} from '../../utils/constants';
+
 function App() {
   const [errorModalActive, setErrorModalActive] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState(null);
@@ -52,6 +64,9 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      if (window.location.pathname === '/signup' || window.location.pathname === '/signin') {
+        navigate('/movies');
+      }
       checkTokenandGetUser(token);
     } else {
       setIsAuthChecking(false);
@@ -87,10 +102,13 @@ function App() {
 
   function signOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('checkbox');
+    localStorage.removeItem('movie');
     setIsLoggedIn(false);
     navigate('/');
   }
 
+  const [isSaveUserDataButtonActive, setIsSaveUserDataButtonActive] = React.useState(false);
   const [isUserUpdateSuccess, setIsUserUpdateSuccess] = React.useState(false);
   function onUserUpdate({ name, email }) {
     const token = localStorage.getItem('token');
@@ -103,7 +121,7 @@ function App() {
       .catch((err) => {
         setErrorMessage(err.message);
         setErrorModalActive(true);
-      });
+      }).finally(() => setIsSaveUserDataButtonActive(false));
   }
 
   const [requestInput, setRequsetInput] = React.useState({});
@@ -196,14 +214,14 @@ function App() {
 
   React.useEffect(() => {
     let res = [];
-    if (width < 990 && width >= 620) {
-      res = filteredMovies.slice(0, 8);
+    if (width >= DISPLAY_WIDTH_MIN) {
+      res = filteredMovies.slice(0, DISPLAY_CARD_COUNT);
       setMoviesForView(res);
-    } else if (width <= 786) {
-      res = filteredMovies.slice(0, 5);
+    } else if (width >= TABLET_WIDTH_MIN) {
+      res = filteredMovies.slice(0, TABLET_CARD_COUNT);
       setMoviesForView(res);
     } else {
-      res = filteredMovies.slice(0, 12);
+      res = filteredMovies.slice(0, MOBILE_CARD_COUNT);
       setMoviesForView(res);
     }
     checkMoreButton(res.length, filteredMovies.length);
@@ -213,16 +231,16 @@ function App() {
     const index = moviesForView.length;
     let res = [];
 
-    if (width >= 1280) {
-      res = moviesForView.concat(filteredMovies.slice(index, index + 4));
+    if (width >= DISPLAY_WIDTH) {
+      res = moviesForView.concat(filteredMovies.slice(index, index + DISPLAY_L_CARD_ADD));
       setMoviesForView(res);
     }
-    if (width < 1280 && width >= 990) {
-      res = moviesForView.concat(filteredMovies.slice(index, index + 3));
+    if (width < DISPLAY_WIDTH && width >= DISPLAY_WIDTH_MIN) {
+      res = moviesForView.concat(filteredMovies.slice(index, index + DISPLAY_CARD_ADD));
       setMoviesForView(res);
     }
-    if (width < 990) {
-      res = moviesForView.concat(filteredMovies.slice(index, index + 2));
+    if (width < DISPLAY_WIDTH_MIN) {
+      res = moviesForView.concat(filteredMovies.slice(index, index + TABLET_AND_MOBILE_CARD_ADD));
       setMoviesForView(res);
     }
 
@@ -311,7 +329,18 @@ function App() {
                 />
               )}
             />
-            <Route path="profile" element={<Profile onSignOut={signOut} onUserUpdate={onUserUpdate} isUserUpdateSuccess={isUserUpdateSuccess} />} />
+            <Route
+              path="profile"
+              element={(
+                <Profile
+                  onSignOut={signOut}
+                  onUserUpdate={onUserUpdate}
+                  isUserUpdateSuccess={isUserUpdateSuccess}
+                  isActive={isSaveUserDataButtonActive}
+                  setIsActive={setIsSaveUserDataButtonActive}
+                />
+)}
+            />
           </Route>
 
           <Route path="/" element={<Main />} />

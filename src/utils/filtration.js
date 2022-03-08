@@ -1,4 +1,6 @@
 /* eslint-disable prefer-destructuring */
+import { SHORT_MOVIE_DURATION } from './constants';
+
 export default function filter(values, movies) {
   if (!values || !movies) {
     return [];
@@ -14,7 +16,7 @@ export default function filter(values, movies) {
 
     if (nameRu.includes(values.movie.toLowerCase())) {
       if (values.checkbox) {
-        if (duration <= 40) {
+        if (duration <= SHORT_MOVIE_DURATION) {
           return true;
         }
         return false;
