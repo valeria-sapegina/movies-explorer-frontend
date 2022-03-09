@@ -33,6 +33,7 @@ class MainApi {
     } = movie;
     const image = `https://api.nomoreparties.co${movie.image.url}`;
     const thumbnail = `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
+    console.log(movie);
 
     return fetch(`${this._baseUrl}/movies`, {
       method: 'POST',
@@ -49,7 +50,7 @@ class MainApi {
         image,
         trailerLink,
         nameRU,
-        nameEN: nameEN.length === 0 ? 'nameEN' : nameEN,
+        nameEN: nameEN ? 'nameEN' : nameEN,
         thumbnail,
         movieId: id,
       }),

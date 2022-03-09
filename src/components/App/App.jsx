@@ -99,12 +99,14 @@ function App() {
         setErrorModalActive(true);
       });
   }
+  const [requestInput, setRequsetInput] = React.useState({});
 
   function signOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('checkbox');
     localStorage.removeItem('movie');
     setIsLoggedIn(false);
+    setRequsetInput({});
     navigate('/');
   }
 
@@ -124,7 +126,6 @@ function App() {
       }).finally(() => setIsSaveUserDataButtonActive(false));
   }
 
-  const [requestInput, setRequsetInput] = React.useState({});
   const [isSendingRequest, setIsSendingRequest] = React.useState(false);
   const [movies, setMovies] = React.useState([]);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
@@ -353,6 +354,7 @@ function App() {
           active={errorModalActive}
           setActive={setErrorModalActive}
           errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
         />
       </div>
     </CurrentUserContext.Provider>
