@@ -1,4 +1,23 @@
-function ErrorModal({ active, setActive, errorMessage }) {
+import React from 'react';
+import { ERROR_MODAL_DURATION } from '../../utils/constants';
+
+function ErrorModal({
+  active, setActive, errorMessage, setErrorMessage,
+}) {
+  React.useEffect(() => {
+    if (errorMessage === 'Validation failed') {
+      setErrorMessage('Пожалуйста перезагрузите страницу или попробуйте позднее');
+    }
+  }, [errorMessage]);
+
+  React.useEffect(() => {
+    if (active) {
+      setTimeout(() => {
+        setActive(false);
+      }, ERROR_MODAL_DURATION);
+    }
+  }, [active]);
+
   function closeModal() {
     setActive(false);
   }

@@ -26,6 +26,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     margin-bottom: 10px;
+    gap: 10px;
 }
 
 .movies-card__title {
@@ -37,6 +38,10 @@
     font-size: 13px;
     line-height: 16px;
     color: #000000;
+    max-width:230px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .movies-card__save-button {

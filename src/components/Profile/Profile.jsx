@@ -1,20 +1,36 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import Header from '../Header/Header';
-import user from '../../utils/user';
+import { useFormWithValidation } from '../../utils/validation';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Profile() {
-  const [isActive, setIsActive] = React.useState(false);
-  const [userName, setUserName] = React.useState(user.name);
-  const [userEmail, setUserEmail] = React.useState(user.email);
+function Profile({
+  onSignOut, onUserUpdate, isUserUpdateSuccess, isActive, setIsActive,
+}) {
+  const currentUser = React.useContext(CurrentUserContext);
 
-  function handleChange(e) {
-    const { name } = e.target;
-    const { value } = e.target;
-    if (name === 'email') {
-      setUserEmail(value);
-    } else if (name === 'name') {
-      setUserName(value);
+  const [idDisable, setIsDisable] = React.useState(false);
+  const {
+    values, handleChange, resetFrom, errors, isValid,
+  } = useFormWithValidation();
+
+  React.useEffect(() => {
+    if (values.name === currentUser.name && values.email === currentUser.email) {
+      setIsDisable(true);
+    } else {
+      setIsDisable(false);
     }
+  }, [values]);
+
+  React.useEffect(() => {
+    if (currentUser) {
+      resetFrom(currentUser, {}, true);
+    }
+  }, [currentUser, resetFrom]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onUserUpdate(values);
   }
 
   function activateForm() {
@@ -29,59 +45,77 @@ function Profile() {
           <h2 className="profile__title">
             Привет,
             {' '}
-            {user.name}
+            {currentUser.name}
             !
           </h2>
           <div className="profile__form-container">
-            <form className="profile__form">
+            <form className="profile__form" onSubmit={handleSubmit} noValidate>
               <div className="profile__form-input-container">
-                <label className="profile__input-label">Имя</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  className="profile__form-input"
-                  placeholder="Введите имя"
-                  value={userName}
-                  onChange={handleChange}
-                  minLength={2}
-                  maxLength={30}
-                  required
-                  disabled={!isActive ? true : undefined}
-                />
+                <div className="profile__form-input-wrapper">
+                  <label className="profile__input-label">Имя</label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    className="profile__form-input"
+                    placeholder="Введите имя"
+                    value={values.name || ''}
+                    onChange={handleChange}
+                    minLength={2}
+                    maxLength={30}
+                    pattern="^[(A-ZА-ЯЁa-zа-яё \-)]*$"
+                    required
+                    disabled={!isActive ? true : undefined}
+                  />
+                </div>
+                <span className="profile__form-error">
+                  {errors.name || ''}
+                </span>
               </div>
               <div className="profile__form-input-container">
-                <label className="profile__input-label">E-mail</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="profile__form-input"
-                  placeholder="Введите e-mail"
-                  value={userEmail}
-                  onChange={handleChange}
-                  minLength={2}
-                  required
-                  disabled={!isActive ? true : undefined}
-                />
+                <div className="profile__form-input-wrapper">
+                  <label className="profile__input-label">E-mail</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="profile__form-input"
+                    placeholder="Введите e-mail"
+                    value={values.email || ''}
+                    onChange={handleChange}
+                    minLength={2}
+                    required
+                    disabled={!isActive ? true : undefined}
+                  />
+                </div>
+                <span className="profile__form-error">
+                  {errors.email || ''}
+                </span>
               </div>
 
+              <div className="message">
+                {isUserUpdateSuccess
+                && <p className="message__text">Данные успешно обновлены!</p>}
+              </div>
               <div className="profile__button-container">
                 {!isActive ? (
-                  <>
-                    <div className="profile__button-wrapper">
-                      <button type="button" className="profile__button-edit button" onClick={activateForm}>Редактировать</button>
-                    </div>
-                    <div className="profile__button-wrapper">
-                      <button type="button" className="profile__button-quit button">Выйти из аккаунта</button>
-                    </div>
-                  </>
+                  <div className="profile__button-wrapper">
+                    <button type="button" className="profile__button-edit button" onClick={activateForm}>Редактировать</button>
+                  </div>
                 ) : (
-                  <>
-                    <p className="profile__error"> </p>
-                    <button type="submit" className="profile__button-submit button">Сохранить</button>
-                  </>
+                  <button
+                    type="submit"
+                    className={`profile__button-submit button ${
+                      (idDisable && isValid) && 'button_disabled'
+                    }`}
+                  >
+                    Сохранить
+
+                  </button>
                 )}
+                <div className="profile__button-wrapper">
+                  <button type="button" className="profile__button-quit button" onClick={onSignOut}>Выйти из аккаунта</button>
+                </div>
               </div>
             </form>
           </div>

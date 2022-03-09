@@ -1,8 +1,14 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-function FilterCheckbox() {
+function FilterCheckbox({ values, handleChange }) {
   return (
     <div className="checkbox">
-      <input type="checkbox" name="checkbox" id="checkbox" className="checkbox__input" />
+      <input
+        type="checkbox"
+        name="checkbox"
+        id="checkbox"
+        className="checkbox__input"
+        checked={values.checkbox || false}
+        onChange={handleChange}
+      />
       <label htmlFor="checkbox" className="checkbox__label">Короткометражки</label>
     </div>
   );
